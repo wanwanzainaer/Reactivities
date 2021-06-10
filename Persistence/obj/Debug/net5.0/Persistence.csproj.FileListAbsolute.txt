@@ -1,0 +1,15 @@
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/Persistence.deps.json
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/Persistence.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/ref/Persistence.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/Persistence.pdb
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/Domain.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/bin/Debug/net5.0/Domain.pdb
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.csproj.AssemblyReference.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.AssemblyInfoInputs.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.AssemblyInfo.cs
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.csproj.CoreCompileInputs.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.csproj.CopyComplete
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/ref/Persistence.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Persistence/obj/Debug/net5.0/Persistence.pdb
