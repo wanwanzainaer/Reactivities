@@ -1,0 +1,12 @@
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/bin/Debug/net5.0/Domain.deps.json
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/bin/Debug/net5.0/Domain.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/bin/Debug/net5.0/ref/Domain.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/bin/Debug/net5.0/Domain.pdb
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.csproj.AssemblyReference.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.AssemblyInfoInputs.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.AssemblyInfo.cs
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.csproj.CoreCompileInputs.cache
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/ref/Domain.dll
+/Users/shihchuanho/Developer/csharp_project/Reactivities/Domain/obj/Debug/net5.0/Domain.pdb
