@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
-import { Activity } from '../../app/models/activity';
+import { Activity } from '../../../app/models/activity';
 
 interface ActivityListProp {
   activities: Activity[];
+  selectActivity: (id: string) => void;
 }
 
-const ActivityList: FC<ActivityListProp> = ({ activities }) => {
+const ActivityList: FC<ActivityListProp> = ({ activities, selectActivity }) => {
   return (
     <Segment>
       <Item.Group divided>
@@ -22,7 +23,12 @@ const ActivityList: FC<ActivityListProp> = ({ activities }) => {
                 </div>
               </Item.Description>
               <Item.Extra>
-                <Button floated="right" content="View" color="blue" />
+                <Button
+                  onClick={() => selectActivity(activity.id)}
+                  floated="right"
+                  content="View"
+                  color="blue"
+                />
                 <Label basic content={activity.category} />
               </Item.Extra>
             </Item.Content>
