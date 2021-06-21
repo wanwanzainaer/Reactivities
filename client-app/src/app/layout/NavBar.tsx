@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import { Button, Container, Menu } from 'semantic-ui-react';
 
-const NavBar: FC = () => {
+interface NavBarProp {
+  openForm: () => void;
+}
+
+const NavBar: FC<NavBarProp> = ({ openForm }) => {
   return (
     <Menu inverted fixed="top">
       <Container>
@@ -15,7 +19,7 @@ const NavBar: FC = () => {
         </Menu.Item>
         <Menu.Item name="Activities" />
         <Menu.Item>
-          <Button positive content="Create Activity" />
+          <Button onClick={openForm} positive content="Create Activity" />
         </Menu.Item>
       </Container>
     </Menu>
