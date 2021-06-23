@@ -14,6 +14,8 @@ const App: React.FC = () => {
     useState<Activity | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
     const activitiesRequest = async () => {
       const response = await agent.Activities.list();
@@ -43,18 +45,28 @@ const App: React.FC = () => {
     setEditMode(true);
   };
 
-  const handleCreateOrEditActivity = (activity: Activity) => {
-    activity.id
-      ? setActivities((state) => [
-          ...state.filter((x) => x.id !== activity.id),
-          activity,
-        ])
-      : setActivities((state) => [...state, { ...activity, id: uuid() }]);
-    setEditMode(false);
+  const handleCreateOrEditActivity = async (activity: Activity) => {
+    setSubmitting(true);
+    if (activity.id) {
+      await agent.Activities.update(activity);
+      setActivities((state) => [
+        ...state.filter((x) => x.id !== activity.id),
+        activity,
+      ]);
+    } else {
+      activity.id = uuid();
+      await agent.Activities.create(activity);
+      setActivities((state) => [...state, { ...activity, id: uuid() }]);
+    }
     setSelectedActivity(activity);
+    setEditMode(false);
+    setSubmitting(false);
   };
 
-  const handleDeleteActivity = (id: string) => {
+  const handleDeleteActivity = async (id: string) => {
+    setSubmitting(true);
+    await agent.Activities.delete(id);
+    setSubmitting(false);
     setActivities((state) => [...state.filter((x) => x.id !== id)]);
   };
 
@@ -74,6 +86,7 @@ const App: React.FC = () => {
           closeForm={handleFormClose}
           createOrEdit={handleCreateOrEditActivity}
           deleteActivity={handleDeleteActivity}
+          submitting={submitting}
         />
       </Container>
     </>
