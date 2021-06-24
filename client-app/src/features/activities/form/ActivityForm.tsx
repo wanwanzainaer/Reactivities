@@ -3,7 +3,7 @@ import { Button, Form, Segment } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
 
 interface ActivityFormProp {
-  activity: Activity | undefined;
+  activity: Activity | null;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
   submitting: boolean;

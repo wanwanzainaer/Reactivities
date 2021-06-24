@@ -7,42 +7,28 @@ import ActivityDashboard from '../../features/activities/dashboard/ActivityDashb
 import { v4 as uuid } from 'uuid';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
+import { useStore } from '../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const App: React.FC = () => {
+  const { activityStore } = useStore();
+
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [selectedActivity, setSelectedActivity] =
-    useState<Activity | undefined>(undefined);
+
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const activitiesRequest = async () => {
-      const response = await agent.Activities.list();
-      const activities = response.map((activity) => {
-        activity.date = activity.date.split('T')[0];
-        return activity;
-      });
-      setLoading(false);
-      setActivities(activities);
-    };
-    activitiesRequest();
-  }, [activities.length]);
-
-  const handleSelectedActivity = (id: string) => {
-    setSelectedActivity(activities.find((x) => x.id === id));
-  };
-  const handleCancelSelectActivity = () => {
-    setSelectedActivity(undefined);
-  };
+    activityStore.loadActivities();
+  }, [activityStore]);
 
   const handleFormClose = () => {
     setEditMode(false);
   };
 
   const handleFormOpen = (id?: string) => {
-    id ? handleSelectedActivity(id) : handleCancelSelectActivity();
-    setEditMode(true);
+    // id ? handleSelectedActivity(id) : handleCancelSelectActivity();
+    // setEditMode(true);
   };
 
   const handleCreateOrEditActivity = async (activity: Activity) => {
@@ -58,7 +44,7 @@ const App: React.FC = () => {
       await agent.Activities.create(activity);
       setActivities((state) => [...state, { ...activity, id: uuid() }]);
     }
-    setSelectedActivity(activity);
+    //setSelectedActivity(activity);
     setEditMode(false);
     setSubmitting(false);
   };
@@ -70,17 +56,14 @@ const App: React.FC = () => {
     setActivities((state) => [...state.filter((x) => x.id !== id)]);
   };
 
-  if (loading) return <LoadingComponent content="Loading App" />;
+  if (activityStore.loadingInitial)
+    return <LoadingComponent content="Loading App" />;
 
   return (
     <>
       <NavBar openForm={handleFormOpen} />
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard
-          activities={activities}
-          selectedActivity={selectedActivity}
-          cancelSelectActivity={handleCancelSelectActivity}
-          selectActivity={handleSelectedActivity}
           editMode={editMode}
           openForm={handleFormOpen}
           closeForm={handleFormClose}
@@ -93,4 +76,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default observer(App);

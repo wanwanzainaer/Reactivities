@@ -1,14 +1,12 @@
+import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 import ActivityDetails from '../details/ActivityDetails';
 import ActivityForm from '../form/ActivityForm';
 import ActivityList from './ActivityList';
 interface ActivityDashboardProp {
-  activities: Activity[];
-  selectedActivity: Activity | undefined;
-  selectActivity: (id: string) => void;
-  cancelSelectActivity: () => void;
   editMode: Boolean;
   openForm: (id?: string) => void;
   closeForm: () => void;
@@ -17,10 +15,6 @@ interface ActivityDashboardProp {
   submitting: boolean;
 }
 const ActivityDashboard: FC<ActivityDashboardProp> = ({
-  activities,
-  selectActivity,
-  selectedActivity,
-  cancelSelectActivity,
   editMode,
   openForm,
   closeForm,
@@ -28,6 +22,9 @@ const ActivityDashboard: FC<ActivityDashboardProp> = ({
   deleteActivity,
   submitting,
 }) => {
+  const {
+    activityStore: { selectedActivity, activities, selectActivity },
+  } = useStore();
   return (
     <Grid>
       <Grid.Column width="10">
@@ -40,11 +37,7 @@ const ActivityDashboard: FC<ActivityDashboardProp> = ({
       </Grid.Column>
       <Grid.Column width="6">
         {selectedActivity && !editMode && (
-          <ActivityDetails
-            activity={selectedActivity}
-            cancelSelectActivity={cancelSelectActivity}
-            openForm={openForm}
-          />
+          <ActivityDetails activity={selectedActivity} openForm={openForm} />
         )}
         {editMode && (
           <ActivityForm
@@ -59,4 +52,4 @@ const ActivityDashboard: FC<ActivityDashboardProp> = ({
   );
 };
 
-export default ActivityDashboard;
+export default observer(ActivityDashboard);
