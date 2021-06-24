@@ -1,18 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 
 interface ActivityListProp {
   activities: Activity[];
   selectActivity: (id: string) => void;
   deleteActivity: (id: string) => void;
+  submitting: boolean;
 }
 
 const ActivityList: FC<ActivityListProp> = ({
   activities,
   selectActivity,
   deleteActivity,
+  submitting,
 }) => {
+  const { activityStore } = useStore();
+  const [target, setTarget] = useState('');
+  const handleActivityDelete = (
+    e: SyntheticEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    setTarget(e.currentTarget.name);
+    deleteActivity(id);
+  };
+
   return (
     <Segment>
       <Item.Group divided>
@@ -29,13 +42,15 @@ const ActivityList: FC<ActivityListProp> = ({
               </Item.Description>
               <Item.Extra>
                 <Button
-                  onClick={() => selectActivity(activity.id)}
+                  onClick={() => activityStore.selectActivity(activity.id)}
                   floated="right"
                   content="View"
                   color="blue"
                 />
                 <Button
-                  onClick={() => deleteActivity(activity.id)}
+                  name={activity.id}
+                  loading={submitting && activity.id === target}
+                  onClick={(e) => handleActivityDelete(e, activity.id)}
                   floated="right"
                   content="Delete"
                   color="red"

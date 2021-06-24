@@ -3,15 +3,17 @@ import { Button, Form, Segment } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
 
 interface ActivityFormProp {
-  activity: Activity | undefined;
+  activity: Activity | null;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
+  submitting: boolean;
 }
 
 const ActivityForm: FC<ActivityFormProp> = ({
   closeForm,
   activity: selectedActivity,
   createOrEdit,
+  submitting,
 }) => {
   const initialState = selectedActivity ?? {
     id: '',
@@ -74,7 +76,13 @@ const ActivityForm: FC<ActivityFormProp> = ({
           name="venue"
           onChange={handleInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           floated="right"
           type="button"

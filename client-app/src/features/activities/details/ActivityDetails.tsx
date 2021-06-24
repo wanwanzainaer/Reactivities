@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
 import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 
 interface ActivityDetailsProp {
   activity: Activity;
-  cancelSelectActivity: () => void;
   openForm: (id?: string) => void;
 }
 
-const ActivityDetails: FC<ActivityDetailsProp> = ({
-  activity,
-  cancelSelectActivity,
-  openForm,
-}) => {
+const ActivityDetails: FC<ActivityDetailsProp> = ({ activity, openForm }) => {
+  const {
+    activityStore: { cancelSelectActivity },
+  } = useStore();
   return (
     <Card fluid>
       <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
