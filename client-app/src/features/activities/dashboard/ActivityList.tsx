@@ -1,22 +1,17 @@
+import { observer } from 'mobx-react-lite';
 import React, { FC, SyntheticEvent, useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
-import { Activity } from '../../../app/models/activity';
 import { useStore } from '../../../app/stores/store';
 
-interface ActivityListProp {
-  activities: Activity[];
-  selectActivity: (id: string) => void;
-  deleteActivity: (id: string) => void;
-  submitting: boolean;
-}
-
-const ActivityList: FC<ActivityListProp> = ({
-  activities,
-  selectActivity,
-  deleteActivity,
-  submitting,
-}) => {
-  const { activityStore } = useStore();
+const ActivityList: FC = () => {
+  const {
+    activityStore: {
+      selectActivity,
+      loading,
+      deleteActivity,
+      activitiesByDate,
+    },
+  } = useStore();
   const [target, setTarget] = useState('');
   const handleActivityDelete = (
     e: SyntheticEvent<HTMLButtonElement>,
@@ -29,7 +24,7 @@ const ActivityList: FC<ActivityListProp> = ({
   return (
     <Segment>
       <Item.Group divided>
-        {activities.map((activity) => (
+        {activitiesByDate.map((activity) => (
           <Item key={activity.id}>
             <Item.Content>
               <Item.Header as="a">{activity.title}</Item.Header>
@@ -42,14 +37,14 @@ const ActivityList: FC<ActivityListProp> = ({
               </Item.Description>
               <Item.Extra>
                 <Button
-                  onClick={() => activityStore.selectActivity(activity.id)}
+                  onClick={() => selectActivity(activity.id)}
                   floated="right"
                   content="View"
                   color="blue"
                 />
                 <Button
                   name={activity.id}
-                  loading={submitting && activity.id === target}
+                  loading={loading && activity.id === target}
                   onClick={(e) => handleActivityDelete(e, activity.id)}
                   floated="right"
                   content="Delete"
@@ -65,4 +60,4 @@ const ActivityList: FC<ActivityListProp> = ({
   );
 };
 
-export default ActivityList;
+export default observer(ActivityList);
