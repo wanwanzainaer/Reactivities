@@ -25,11 +25,11 @@ export default class ActivityStore {
     );
   }
   loadActivities = async () => {
+    this.loadingInitial = true;
     try {
       const activities = await agent.Activities.list();
       this.activities = activities.map((activity) => {
-        activity.date = activity.date.split('T')[0];
-        this.activityRegistry.set(activity.id, activity);
+        this.setActivity(activity);
         return activity;
       });
       this.setLoadingInitial(false);
@@ -40,6 +40,31 @@ export default class ActivityStore {
       });
     }
   };
+
+  loadActivity = async (id: string) => {
+    let activity = this.getActivity(id);
+    if (activity) this.selectedActivity = activity;
+    else {
+      this.loadingInitial = true;
+      try {
+        activity = await agent.Activities.details(id);
+        this.setActivity(activity);
+        this.selectedActivity = activity;
+        this.setLoadingInitial(false);
+      } catch (e) {
+        console.log(e);
+        this.setLoadingInitial(false);
+      }
+    }
+  };
+  private setActivity = (activity: Activity) => {
+    activity.date = activity.date.split('T')[0];
+    this.activityRegistry.set(activity.id, activity);
+  };
+  private getActivity = (id: string) => {
+    return this.activityRegistry.get(id);
+  };
+
   selectActivity = (id: string) => {
     this.selectedActivity = this.activityRegistry.get(id);
   };
