@@ -6,12 +6,7 @@ import { useStore } from '../../../app/stores/store';
 
 const ActivityList: FC = () => {
   const {
-    activityStore: {
-      selectActivity,
-      loading,
-      deleteActivity,
-      activitiesByDate,
-    },
+    activityStore: { loading, deleteActivity, activitiesByDate },
   } = useStore();
   const [target, setTarget] = useState('');
   const handleActivityDelete = (

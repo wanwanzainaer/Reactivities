@@ -1,19 +1,25 @@
 import { observer } from 'mobx-react-lite';
-import React, { useState, FC, ChangeEvent } from 'react';
+import React, { useState, FC, ChangeEvent, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { Activity } from '../../../app/models/activity';
 import { useStore } from '../../../app/stores/store';
-
+import { v4 as uuid } from 'uuid';
+import { Link } from 'react-router-dom';
 const ActivityForm: FC = () => {
+  const history = useHistory();
   const {
     activityStore: {
-      selectedActivity,
       updateActivity,
       createActivity,
+      loadActivity,
+      loadingInitial,
       loading,
     },
   } = useStore();
-  const initialState = selectedActivity ?? {
+  const { id } = useParams<{ id: string }>();
+  const [activity, setActivity] = useState<Activity>({
     id: '',
     title: '',
     category: '',
@@ -21,11 +27,28 @@ const ActivityForm: FC = () => {
     date: '',
     city: '',
     venue: '',
-  };
-  const [activity, setActivity] = useState<Activity>(initialState);
+  });
 
-  const handleSubmit = () => {
-    activity.id ? updateActivity(activity) : createActivity(activity);
+  useEffect(() => {
+    const load = async (id: string) => {
+      const activity = await loadActivity(id);
+      setActivity(activity!);
+    };
+    if (id) load(id);
+  }, [id, loadActivity]);
+
+  const handleSubmit = async () => {
+    if (activity.id.length === 0) {
+      let newActivity = {
+        ...activity,
+        id: uuid(),
+      };
+      await createActivity(newActivity);
+      history.push(`/activities/${newActivity.id}`);
+    } else {
+      await updateActivity(activity);
+      history.push(`/activities/${activity.id}`);
+    }
   };
 
   const handleInputChange = (
@@ -34,6 +57,10 @@ const ActivityForm: FC = () => {
     const { name, value } = event.target;
     setActivity((state) => ({ ...state, [name]: value }));
   };
+
+  if (loadingInitial)
+    return <LoadingComponent content="Loading activity...." />;
+
   return (
     <Segment clearing>
       <Form onSubmit={handleSubmit} autoComplete="off">
@@ -81,7 +108,13 @@ const ActivityForm: FC = () => {
           type="submit"
           content="Submit"
         />
-        <Button floated="right" type="button" content="Cancel" />
+        <Button
+          as={Link}
+          to="/activities"
+          floated="right"
+          type="button"
+          content="Cancel"
+        />
       </Form>
     </Segment>
   );
