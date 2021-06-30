@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "kGcJ/SVIEXRbwJ/oSo+k9TFdHRRMFCl+2w+rnvd1xbNpa+F1r169R5LtLZth5GW399H3ecpGtnHILY6sTLsxwQ==",
+  "dgSpecHash": "elBLIB2S4/57VlYmjvdODv+nRh4CLTCuE4lN2e2iTbFffalD1LCX+Exban0xJqlo0FcEJYN+eAmVyqj5X4RqUQ==",
   "success": true,
   "projectFilePath": "/Users/shihchuanho/Developer/csharp_project/Reactivities/Application/Application.csproj",
   "expectedPackageFiles": [
     "/Users/shihchuanho/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
     "/Users/shihchuanho/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "/Users/shihchuanho/.nuget/packages/fluentvalidation/9.3.0/fluentvalidation.9.3.0.nupkg.sha512",
+    "/Users/shihchuanho/.nuget/packages/fluentvalidation.aspnetcore/9.3.0/fluentvalidation.aspnetcore.9.3.0.nupkg.sha512",
+    "/Users/shihchuanho/.nuget/packages/fluentvalidation.dependencyinjectionextensions/9.3.0/fluentvalidation.dependencyinjectionextensions.9.3.0.nupkg.sha512",
     "/Users/shihchuanho/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
     "/Users/shihchuanho/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/9.0.0/mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
     "/Users/shihchuanho/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
