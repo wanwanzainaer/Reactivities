@@ -1,5 +1,7 @@
 using System;
 using System.Net;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Application.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
@@ -16,10 +18,10 @@ namespace API.Middleware
         {
             _next = next;
             _logger = logger;
-            _environment = environment;
+            _env = environment;
         }
 
-        public async ActivityTrackingOptions InvokeAsync(HttpContext context){
+        public async Task InvokeAsync(HttpContext context){
             try
             {
                 await _next(context);
@@ -35,7 +37,10 @@ namespace API.Middleware
                 ? new AppException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
                 : new AppException(context.Response.StatusCode, "Server Error");
 
-                
+                var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+                var json = JsonSerializer.Serialize(response, options);
+
+                await context.Response.WriteAsync(json);
             }
         }
     }
