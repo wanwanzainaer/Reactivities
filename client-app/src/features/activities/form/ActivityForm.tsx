@@ -65,6 +65,7 @@ const ActivityForm: FC = () => {
   return (
     <Segment clearing>
       <Formik
+        enableReinitialize
         initialValues={activity}
         onSubmit={(values) => console.log(values)}
       >
